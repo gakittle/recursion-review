@@ -9,8 +9,26 @@ var stringifyJSON = function(obj) {
 
   if (typeof(obj) === 'object') {
 
-    if (obj === null) {
+    if (Array.isArray(obj)) {
+      var contents = '';
+      _.each(obj, function(elem) {
+        contents += stringifyJSON(elem) + ',';
+      });
+      contents = contents.slice(0, contents.length - 1);
+      return '[' + contents + ']';
+    
+    } else if (obj === null) {
       return 'null';
+    
+    } else {
+      var contents = '';
+      for (var key in obj) {
+        if (typeof(obj[key]) !== 'function' && obj[key] !== undefined) {
+          contents += `"${key}"` + ':' + stringifyJSON(obj[key]) + ',';
+        }
+      }
+      contents = contents.slice(0, contents.length - 1);
+      return '{' + contents + '}';
     }
   
   } else if (typeof(obj) === 'number') {
