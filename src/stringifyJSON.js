@@ -4,9 +4,8 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  //number, object, boolean
-  console.log(obj);
 
+  // objects (arrays, null, literals)
   if (typeof(obj) === 'object') {
 
     if (Array.isArray(obj)) {
@@ -31,14 +30,17 @@ var stringifyJSON = function(obj) {
       return '{' + contents + '}';
     }
   
+    // numbers
   } else if (typeof(obj) === 'number') {
     return obj.toString();
   
+    // booleans
   } else if (typeof(obj) === 'boolean') {
     if (obj) {
       return 'true';
     } else {return 'false';}
   
+    // strings
   } else if (typeof(obj) === 'string') {
     return `"${obj}"`;
   }
